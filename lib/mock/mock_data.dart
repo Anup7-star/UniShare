@@ -1,0 +1,113 @@
+import 'package:unishare/shared/models/models.dart';
+
+import 'mock_users.dart';
+import 'mock_campus.dart';
+import 'mock_deliveries.dart';
+import 'mock_rentals.dart';
+import 'mock_notifications.dart';
+
+export 'mock_users.dart';
+export 'mock_campus.dart';
+export 'mock_deliveries.dart';
+export 'mock_rentals.dart';
+export 'mock_notifications.dart';
+
+class MockDataService {
+  // Simulate network delay
+  Future<void> _delay() async {
+    await Future.delayed(const Duration(milliseconds: 400));
+  }
+
+  Future<UniUser> getCurrentUser() async {
+    await _delay();
+    return mockCurrentUser;
+  }
+
+  Future<List<UniUser>> getUsers() async {
+    await _delay();
+    return mockUsers;
+  }
+
+  Future<List<CampusLocation>> getLocations() async {
+    await _delay();
+    return mockLocations;
+  }
+
+  Future<List<CampusRoute>> getRoutes() async {
+    await _delay();
+    return mockRoutes;
+  }
+
+  Future<List<DeliveryRequest>> getDeliveryRequests() async {
+    await _delay();
+    return mockDeliveries;
+  }
+
+  Future<List<DeliveryRequest>> getNearbyDeliveries() async {
+    await _delay();
+    return mockDeliveries;
+  }
+
+  Future<List<RentalListing>> getRentalListings() async {
+    await _delay();
+    return mockRentals;
+  }
+
+  Future<List<RentalListing>> getPopularRentals() async {
+    await _delay();
+    return mockRentals;
+  }
+
+  Future<List<NotificationItem>> getNotifications() async {
+    await _delay();
+    return mockNotifications;
+  }
+
+  Future<UniUser?> getUserById(String id) async {
+    await _delay();
+    try {
+      return mockUsers.firstWhere((UniUser) => UniUser.id == id);
+    } catch (e) {
+      return null;
+    }
+  }
+
+  Future<CampusLocation?> getLocationById(String id) async {
+    await _delay();
+    try {
+      return mockLocations.firstWhere((loc) => loc.id == id);
+    } catch (e) {
+      return null;
+    }
+  }
+
+  Future<void> addDeliveryRequest(DeliveryRequest request) async {
+    await _delay();
+    mockDeliveries.insert(0, request);
+  }
+
+  Future<void> acceptDeliveryRequest(String deliveryId, String courierId) async {
+    await _delay();
+    final index = mockDeliveries.indexWhere((d) => d.id == deliveryId);
+    if (index != -1) {
+      final old = mockDeliveries[index];
+      mockDeliveries[index] = DeliveryRequest(
+        id: old.id,
+        requesterId: old.requesterId,
+        courierId: courierId,
+        pickupLocationId: old.pickupLocationId,
+        destinationId: old.destinationId,
+        packageType: old.packageType,
+        packageSize: old.packageSize,
+        note: old.note,
+        reward: old.reward,
+        priceCeiling: old.priceCeiling,
+        preferredTime: old.preferredTime,
+        urgency: old.urgency,
+        status: DeliveryStatus.matched,
+        createdAt: old.createdAt,
+      );
+    }
+  }
+}
+

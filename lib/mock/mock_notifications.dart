@@ -1,0 +1,68 @@
+import 'package:unishare/shared/models/models.dart';
+
+final List<NotificationItem> mockNotifications = [
+  NotificationItem(
+    id: 'n1',
+    title: 'Aditya accepted your delivery request',
+    body: 'Your food from Masala Mix is on the way.',
+    createdAt: DateTime.now().subtract(const Duration(minutes: 2)),
+    isRead: false,
+    type: NotificationType.deliveryAccepted,
+  ),
+  NotificationItem(
+    id: 'n2',
+    title: 'Your calculator has been rented by Priya',
+    body: 'Priya Patel has requested your Casio fx-991EX.',
+    createdAt: DateTime.now().subtract(const Duration(minutes: 15)),
+    isRead: false,
+    type: NotificationType.rentalRequest,
+  ),
+  NotificationItem(
+    id: 'n3',
+    title: 'Delivery to Kumaon Hostel completed!',
+    body: 'You have earned ₹25 for this delivery.',
+    createdAt: DateTime.now().subtract(const Duration(hours: 1)),
+    isRead: true,
+    type: NotificationType.deliveryCompleted,
+  ),
+  NotificationItem(
+    id: 'n4',
+    title: 'New delivery request near your route',
+    body: 'Someone requested a delivery from LHC to Aravali Hostel.',
+    createdAt: DateTime.now().subtract(const Duration(hours: 3)),
+    isRead: true,
+    type: NotificationType.deliveryRequest,
+  ),
+  NotificationItem(
+    id: 'n5',
+    title: 'Rate your recent delivery with Rahul',
+    body: 'How was your experience?',
+    createdAt: DateTime.now().subtract(const Duration(hours: 5)),
+    isRead: true,
+    type: NotificationType.ratingReminder,
+  ),
+  NotificationItem(
+    id: 'n6',
+    title: 'Your rental listing "Arduino Kit" received a request',
+    body: 'Review the request to approve or decline.',
+    createdAt: DateTime.now().subtract(const Duration(days: 1)),
+    isRead: true,
+    type: NotificationType.rentalRequest,
+  ),
+  NotificationItem(
+    id: 'n7',
+    title: 'Welcome to UniShare! Complete your profile',
+    body: 'Add a profile picture to build trust.',
+    createdAt: DateTime.now().subtract(const Duration(days: 2)),
+    isRead: true,
+    type: NotificationType.system,
+  ),
+  NotificationItem(
+    id: 'n8',
+    title: 'Sneha returned your CLRS book in good condition',
+    body: 'The rental has been closed.',
+    createdAt: DateTime.now().subtract(const Duration(days: 3)),
+    isRead: true,
+    type: NotificationType.transactionUpdate,
+  ),
+];
