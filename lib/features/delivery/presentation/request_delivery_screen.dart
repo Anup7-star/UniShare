@@ -19,7 +19,8 @@ class RequestDeliveryScreen extends StatefulWidget {
 class _RequestDeliveryScreenState extends State<RequestDeliveryScreen> {
   final MockDataService _mockDataService = MockDataService();
   
-  List<CampusLocation> _locations = [];
+  List<CampusLocation> _pickupLocations = [];
+  List<CampusLocation> _dropLocations = [];
   CampusLocation? _pickupLocation;
   CampusLocation? _destination;
   PackageType _packageType = PackageType.document;
@@ -36,9 +37,11 @@ class _RequestDeliveryScreenState extends State<RequestDeliveryScreen> {
   }
 
   Future<void> _loadLocations() async {
-    final locations = await _mockDataService.getLocations();
+    final pickup = await _mockDataService.getPickupLocations();
+    final drop = await _mockDataService.getDropLocations();
     setState(() {
-      _locations = locations;
+      _pickupLocations = pickup;
+      _dropLocations = drop;
     });
   }
 
@@ -100,7 +103,7 @@ class _RequestDeliveryScreenState extends State<RequestDeliveryScreen> {
             LocationPicker(
               hint: 'Pickup Location',
               icon: Icons.my_location_outlined,
-              locations: _locations,
+              locations: _pickupLocations,
               selectedLocation: _pickupLocation,
               onLocationSelected: (loc) {
                 setState(() => _pickupLocation = loc);
@@ -109,9 +112,9 @@ class _RequestDeliveryScreenState extends State<RequestDeliveryScreen> {
             ),
             const SizedBox(height: 12),
             LocationPicker(
-              hint: 'Destination',
+              hint: 'Drop Location',
               icon: Icons.location_on_outlined,
-              locations: _locations,
+              locations: _dropLocations,
               selectedLocation: _destination,
               onLocationSelected: (loc) {
                 setState(() => _destination = loc);
@@ -242,10 +245,15 @@ class _RequestDeliveryScreenState extends State<RequestDeliveryScreen> {
             const SizedBox(height: 32),
             UniButton(
               onPressed: () async {
+<<<<<<< HEAD
                 final messenger = ScaffoldMessenger.of(context);
                 final navigator = Navigator.of(context);
                 final pickupId = _pickupLocation?.id ?? (_locations.isNotEmpty ? _locations.first.id : 'loc_gate');
                 final destId = _destination?.id ?? (_locations.length > 1 ? _locations[1].id : 'loc_kumaon');
+=======
+                final pickupId = _pickupLocation?.id ?? (_pickupLocations.isNotEmpty ? _pickupLocations.first.id : 'loc_gate');
+                final destId = _destination?.id ?? (_dropLocations.isNotEmpty ? _dropLocations.first.id : 'loc_a_block');
+>>>>>>> 59bbd76c4b00f8ea6674adbf9de5b1ca190a1162
                 final currentUser = await _mockDataService.getCurrentUser();
                 
                 final newReq = DeliveryRequest(
