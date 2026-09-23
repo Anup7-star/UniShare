@@ -245,15 +245,10 @@ class _RequestDeliveryScreenState extends State<RequestDeliveryScreen> {
             const SizedBox(height: 32),
             UniButton(
               onPressed: () async {
-<<<<<<< HEAD
                 final messenger = ScaffoldMessenger.of(context);
                 final navigator = Navigator.of(context);
-                final pickupId = _pickupLocation?.id ?? (_locations.isNotEmpty ? _locations.first.id : 'loc_gate');
-                final destId = _destination?.id ?? (_locations.length > 1 ? _locations[1].id : 'loc_kumaon');
-=======
                 final pickupId = _pickupLocation?.id ?? (_pickupLocations.isNotEmpty ? _pickupLocations.first.id : 'loc_gate');
                 final destId = _destination?.id ?? (_dropLocations.isNotEmpty ? _dropLocations.first.id : 'loc_a_block');
->>>>>>> 59bbd76c4b00f8ea6674adbf9de5b1ca190a1162
                 final currentUser = await _mockDataService.getCurrentUser();
                 
                 final newReq = DeliveryRequest(

@@ -47,9 +47,6 @@ class GreetingHeader extends StatelessWidget {
             Stack(
               children: [
                 IconButton(
-<<<<<<< HEAD
-                  onPressed: onNotificationTap,
-=======
                   onPressed: () => context.go(RouteNames.messages),
                   icon: const Icon(Icons.chat_bubble_outline, color: AppColors.textPrimary),
                   tooltip: 'Messages',
@@ -71,8 +68,7 @@ class GreetingHeader extends StatelessWidget {
             Stack(
               children: [
                 IconButton(
-                  onPressed: () => context.push(RouteNames.notifications),
->>>>>>> 8e4b66c9723828a8c36c4fe511aa1dc54a1f1beb
+                  onPressed: onNotificationTap ?? () => context.push(RouteNames.notifications),
                   icon: const Icon(Icons.notifications_none, color: AppColors.textPrimary),
                   tooltip: 'Notifications',
                 ),
