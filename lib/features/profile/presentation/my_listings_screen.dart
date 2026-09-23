@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class MyListingsScreen extends StatelessWidget {
-  const MyListingsScreen({Key? key}) : super(key: key);
+  const MyListingsScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -88,7 +88,7 @@ class MyListingsScreen extends StatelessWidget {
                           Switch(
                             value: true,
                             onChanged: (val) {},
-                            activeColor: const Color(0xFF00BF6D),
+                            activeThumbColor: const Color(0xFF00BF6D),
                           ),
                         ],
                       )

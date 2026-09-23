@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class ListItemScreen extends StatefulWidget {
-  const ListItemScreen({Key? key}) : super(key: key);
+  const ListItemScreen({super.key});
 
   @override
-  _ListItemScreenState createState() => _ListItemScreenState();
+  State<ListItemScreen> createState() => _ListItemScreenState();
 }
 
 class _ListItemScreenState extends State<ListItemScreen> {
@@ -104,7 +104,7 @@ class _ListItemScreenState extends State<ListItemScreen> {
               ),
               const SizedBox(height: 16),
               DropdownButtonFormField<String>(
-                value: _selectedCategory,
+                initialValue: _selectedCategory,
                 decoration: InputDecoration(
                   labelText: 'Category',
                   labelStyle: GoogleFonts.inter(color: const Color(0xFF8E8E93)),
@@ -218,7 +218,7 @@ class _ListItemScreenState extends State<ListItemScreen> {
                     color: const Color(0xFF1A1A1A),
                   ),
                 ),
-                activeColor: const Color(0xFF00BF6D),
+                activeThumbColor: const Color(0xFF00BF6D),
                 value: _isAvailable,
                 onChanged: (val) => setState(() => _isAvailable = val),
               ),

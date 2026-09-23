@@ -5,9 +5,9 @@ class NotificationTile extends StatelessWidget {
   final Map<String, dynamic> notification;
 
   const NotificationTile({
-    Key? key,
+    super.key,
     required this.notification,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:unishare/core/theme/app_colors.dart';
 import 'package:unishare/core/theme/app_spacing.dart';
+import 'package:unishare/core/utils/communication_helper.dart';
+import 'package:unishare/shared/models/models.dart';
 import 'package:unishare/shared/widgets/uni_card.dart';
 
 class ActiveTransactionCard extends StatelessWidget {
@@ -9,7 +12,7 @@ class ActiveTransactionCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return UniCard(
-      padding: EdgeInsets.all(AppSpacing.md),
+      padding: const EdgeInsets.all(AppSpacing.md),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -65,15 +68,51 @@ class ActiveTransactionCard extends StatelessWidget {
             ],
           ),
           const SizedBox(height: AppSpacing.sm),
-          Divider(color: AppColors.divider),
-          const SizedBox(height: AppSpacing.sm),
-          Center(
-            child: Text(
-              'View Details',
-              style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                color: AppColors.primary,
+          const Divider(color: AppColors.divider),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              TextButton.icon(
+                onPressed: () => context.push('/delivery/transit/d1'),
+                icon: const Icon(Icons.navigation_outlined, size: 16, color: AppColors.primary),
+                label: Text(
+                  'Track Delivery',
+                  style: Theme.of(context).textTheme.labelLarge?.copyWith(
+                    color: AppColors.primary,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
               ),
-            ),
+              Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  IconButton(
+                    icon: const Icon(Icons.phone_outlined, color: AppColors.primary, size: 20),
+                    tooltip: 'Call Courier',
+                    onPressed: () {
+                      CommunicationHelper.showCallModal(
+                        context,
+                        userName: 'Priya Patel',
+                        role: 'Courier (Library → Hostel B)',
+                      );
+                    },
+                  ),
+                  IconButton(
+                    icon: const Icon(Icons.chat_bubble_outline, color: AppColors.primary, size: 20),
+                    tooltip: 'Chat with Courier',
+                    onPressed: () {
+                      CommunicationHelper.openChat(
+                        context,
+                        otherUserId: 'u2',
+                        type: ConversationType.delivery,
+                        contextId: 'd1',
+                        contextTitle: 'Library → Hostel B',
+                      );
+                    },
+                  ),
+                ],
+              ),
+            ],
           ),
         ],
       ),

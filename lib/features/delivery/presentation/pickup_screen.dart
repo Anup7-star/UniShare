@@ -8,11 +8,12 @@ import 'package:unishare/shared/widgets/uni_avatar.dart';
 import 'package:unishare/shared/widgets/uni_button.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:go_router/go_router.dart';
+import 'package:unishare/core/utils/communication_helper.dart';
 import 'dart:async';
 
 class PickupScreen extends StatefulWidget {
   final String deliveryId;
-  const PickupScreen({Key? key, required this.deliveryId}) : super(key: key);
+  const PickupScreen({super.key, required this.deliveryId});
 
   @override
   State<PickupScreen> createState() => _PickupScreenState();
@@ -22,7 +23,6 @@ class _PickupScreenState extends State<PickupScreen> with SingleTickerProviderSt
   late TabController _tabController;
   final MockDataService _mockDataService = MockDataService();
   
-  DeliveryRequest? _request;
   UniUser? _partner;
   bool _isRequester = false;
   bool _isLoading = true;
@@ -56,7 +56,6 @@ class _PickupScreenState extends State<PickupScreen> with SingleTickerProviderSt
     final partner = partnerId != null ? await _mockDataService.getUserById(partnerId) : null;
     
     setState(() {
-      _request = request;
       _partner = partner;
       _isLoading = false;
     });
@@ -136,9 +135,35 @@ class _PickupScreenState extends State<PickupScreen> with SingleTickerProviderSt
                         ],
                       ),
                     ),
-                    IconButton(
-                      icon: const Icon(Icons.phone, color: AppColors.primary),
-                      onPressed: () {},
+                    Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        IconButton(
+                          icon: const Icon(Icons.phone, color: AppColors.primary),
+                          tooltip: 'Call ${_isRequester ? "Courier" : "Requester"}',
+                          onPressed: () {
+                            CommunicationHelper.showCallModal(
+                              context,
+                              userName: _partner!.name,
+                              role: _isRequester ? 'Courier' : 'Requester',
+                              avatarUrl: _partner!.avatarUrl,
+                            );
+                          },
+                        ),
+                        IconButton(
+                          icon: const Icon(Icons.chat_bubble_outline, color: AppColors.primary),
+                          tooltip: 'Chat with ${_isRequester ? "Courier" : "Requester"}',
+                          onPressed: () {
+                            CommunicationHelper.openChat(
+                              context,
+                              otherUserId: _partner!.id,
+                              type: ConversationType.delivery,
+                              contextId: widget.deliveryId,
+                              contextTitle: 'Delivery #${widget.deliveryId}',
+                            );
+                          },
+                        ),
+                      ],
                     ),
                   ],
                 ),
@@ -208,7 +233,7 @@ class _PickupScreenState extends State<PickupScreen> with SingleTickerProviderSt
                 borderRadius: BorderRadius.circular(16),
                 boxShadow: [
                   BoxShadow(
-                    color: Colors.black.withOpacity(0.05),
+                    color: Colors.black.withValues(alpha: 0.05),
                     blurRadius: 10,
                     offset: const Offset(0, 4),
                   ),

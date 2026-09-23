@@ -10,7 +10,7 @@ import 'package:go_router/go_router.dart';
 
 class PartnerSelectionScreen extends StatefulWidget {
   final String deliveryId;
-  const PartnerSelectionScreen({Key? key, required this.deliveryId}) : super(key: key);
+  const PartnerSelectionScreen({super.key, required this.deliveryId});
 
   @override
   State<PartnerSelectionScreen> createState() => _PartnerSelectionScreenState();

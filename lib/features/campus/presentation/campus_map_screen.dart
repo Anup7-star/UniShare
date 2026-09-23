@@ -4,10 +4,10 @@ import 'widgets/campus_graph_view.dart';
 import 'widgets/node_marker.dart';
 
 class CampusMapScreen extends StatefulWidget {
-  const CampusMapScreen({Key? key}) : super(key: key);
+  const CampusMapScreen({super.key});
 
   @override
-  _CampusMapScreenState createState() => _CampusMapScreenState();
+  State<CampusMapScreen> createState() => _CampusMapScreenState();
 }
 
 class _CampusMapScreenState extends State<CampusMapScreen> {
@@ -186,7 +186,7 @@ class _CampusMapScreenState extends State<CampusMapScreen> {
                     ),
                   ),
                 );
-              }).toList(),
+              }),
             ],
           ),
         ),

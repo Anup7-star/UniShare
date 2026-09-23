@@ -29,7 +29,7 @@ final routerProvider = Provider<GoRouter>((ref) {
     routes: [
       GoRoute(
         path: '/',
-        redirect: (_, __) => RouteNames.home,
+        redirect: (_, _) => RouteNames.home,
       ),
       // Bottom navigation shell
       StatefulShellRoute.indexedStack(
@@ -98,10 +98,12 @@ final routerProvider = Provider<GoRouter>((ref) {
 
       // Delivery sub-screens
       GoRoute(
+        parentNavigatorKey: _rootNavigatorKey,
         path: '/delivery/request',
         builder: (context, state) => const RequestDeliveryScreen(),
       ),
       GoRoute(
+        parentNavigatorKey: _rootNavigatorKey,
         path: '/delivery/detail/:id',
         builder: (context, state) {
           final id = state.pathParameters['id'] ?? '';
@@ -109,6 +111,7 @@ final routerProvider = Provider<GoRouter>((ref) {
         },
       ),
       GoRoute(
+        parentNavigatorKey: _rootNavigatorKey,
         path: '/delivery/partners/:id',
         builder: (context, state) {
           final id = state.pathParameters['id'] ?? '';
@@ -116,6 +119,7 @@ final routerProvider = Provider<GoRouter>((ref) {
         },
       ),
       GoRoute(
+        parentNavigatorKey: _rootNavigatorKey,
         path: '/delivery/pickup/:id',
         builder: (context, state) {
           final id = state.pathParameters['id'] ?? '';
@@ -123,6 +127,7 @@ final routerProvider = Provider<GoRouter>((ref) {
         },
       ),
       GoRoute(
+        parentNavigatorKey: _rootNavigatorKey,
         path: '/delivery/transit/:id',
         builder: (context, state) {
           final id = state.pathParameters['id'] ?? '';
@@ -130,6 +135,7 @@ final routerProvider = Provider<GoRouter>((ref) {
         },
       ),
       GoRoute(
+        parentNavigatorKey: _rootNavigatorKey,
         path: '/delivery/complete/:id',
         builder: (context, state) {
           final id = state.pathParameters['id'] ?? '';
@@ -139,6 +145,7 @@ final routerProvider = Provider<GoRouter>((ref) {
 
       // Rental sub-screens
       GoRoute(
+        parentNavigatorKey: _rootNavigatorKey,
         path: '/rental/detail/:id',
         builder: (context, state) {
           final id = state.pathParameters['id'] ?? '';
@@ -146,18 +153,21 @@ final routerProvider = Provider<GoRouter>((ref) {
         },
       ),
       GoRoute(
+        parentNavigatorKey: _rootNavigatorKey,
         path: '/rental/list',
         builder: (context, state) => const ListItemScreen(),
       ),
 
       // Notifications
       GoRoute(
+        parentNavigatorKey: _rootNavigatorKey,
         path: RouteNames.notifications,
         builder: (context, state) => const NotificationsScreen(),
       ),
 
       // Chat (full-screen, outside bottom nav)
       GoRoute(
+        parentNavigatorKey: _rootNavigatorKey,
         path: '/messages/:id',
         builder: (context, state) {
           final id = state.pathParameters['id'] ?? '';

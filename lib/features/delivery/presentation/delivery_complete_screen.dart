@@ -9,7 +9,7 @@ import 'package:go_router/go_router.dart';
 
 class DeliveryCompleteScreen extends StatefulWidget {
   final String deliveryId;
-  const DeliveryCompleteScreen({Key? key, required this.deliveryId}) : super(key: key);
+  const DeliveryCompleteScreen({super.key, required this.deliveryId});
 
   @override
   State<DeliveryCompleteScreen> createState() => _DeliveryCompleteScreenState();

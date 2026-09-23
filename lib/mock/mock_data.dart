@@ -92,10 +92,50 @@ class MockDataService {
     }
   }
 
+  Future<Conversation> getOrCreateConversation({
+    required String otherUserId,
+    required ConversationType type,
+    String? contextId,
+    String? contextTitle,
+  }) async {
+    // Look for existing conversation with this user and context
+    for (final c in mockConversations) {
+      if (c.participantIds.contains(otherUserId)) {
+        if (contextId != null && c.contextId == contextId) {
+          return c;
+        }
+      }
+    }
+    for (final c in mockConversations) {
+      if (c.participantIds.contains(otherUserId) && c.type == type) {
+        return c;
+      }
+    }
+
+    final newId = 'conv_${DateTime.now().millisecondsSinceEpoch}';
+    final otherUser = await getUserById(otherUserId);
+    final title = contextTitle ?? (otherUser?.name ?? 'Direct Chat');
+
+    final newConv = Conversation(
+      id: newId,
+      type: type,
+      contextId: contextId ?? '',
+      contextTitle: title,
+      participantIds: [mockCurrentUser.id, otherUserId],
+      lastMessage: null,
+      lastUpdated: DateTime.now(),
+      unreadCount: 0,
+    );
+
+    mockConversations.insert(0, newConv);
+    mockMessagesByConversation[newId] = [];
+    return newConv;
+  }
+
   Future<UniUser?> getUserById(String id) async {
     await _delay();
     try {
-      return mockUsers.firstWhere((UniUser) => UniUser.id == id);
+      return mockUsers.firstWhere((u) => u.id == id);
     } catch (e) {
       return null;
     }

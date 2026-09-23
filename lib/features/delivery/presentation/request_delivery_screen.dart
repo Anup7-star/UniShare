@@ -10,7 +10,7 @@ import 'package:unishare/shared/widgets/uni_button.dart';
 import 'package:unishare/shared/widgets/uni_input.dart';
 
 class RequestDeliveryScreen extends StatefulWidget {
-  const RequestDeliveryScreen({Key? key}) : super(key: key);
+  const RequestDeliveryScreen({super.key});
 
   @override
   State<RequestDeliveryScreen> createState() => _RequestDeliveryScreenState();
@@ -196,7 +196,7 @@ class _RequestDeliveryScreenState extends State<RequestDeliveryScreen> {
                       margin: const EdgeInsets.only(right: 4),
                       padding: const EdgeInsets.symmetric(vertical: 8),
                       decoration: BoxDecoration(
-                        color: isSelected ? color.withOpacity(0.1) : AppColors.scaffold,
+                        color: isSelected ? color.withValues(alpha: 0.1) : AppColors.scaffold,
                         border: Border.all(
                           color: isSelected ? color : AppColors.divider,
                         ),
@@ -242,6 +242,8 @@ class _RequestDeliveryScreenState extends State<RequestDeliveryScreen> {
             const SizedBox(height: 32),
             UniButton(
               onPressed: () async {
+                final messenger = ScaffoldMessenger.of(context);
+                final navigator = Navigator.of(context);
                 final pickupId = _pickupLocation?.id ?? (_locations.isNotEmpty ? _locations.first.id : 'loc_gate');
                 final destId = _destination?.id ?? (_locations.length > 1 ? _locations[1].id : 'loc_kumaon');
                 final currentUser = await _mockDataService.getCurrentUser();
@@ -265,13 +267,13 @@ class _RequestDeliveryScreenState extends State<RequestDeliveryScreen> {
                 await _mockDataService.addDeliveryRequest(newReq);
 
                 if (mounted) {
-                  ScaffoldMessenger.of(context).showSnackBar(
+                  messenger.showSnackBar(
                     const SnackBar(
                       content: Text('Delivery request posted successfully!'),
                       backgroundColor: AppColors.primary,
                     ),
                   );
-                  Navigator.pop(context, true);
+                  navigator.pop(true);
                 }
               },
               label: 'Post Request',

@@ -1,4 +1,4 @@
-﻿import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:unishare/core/router/route_names.dart';
 import 'package:unishare/core/theme/app_colors.dart';
@@ -186,7 +186,7 @@ class _InboxScreenState extends State<InboxScreen>
 
     return ListView.separated(
       itemCount: conversations.length,
-      separatorBuilder: (_, __) =>
+      separatorBuilder: (_, _) =>
           const Divider(height: 1, color: AppColors.divider),
       itemBuilder: (context, index) {
         final conv = conversations[index];

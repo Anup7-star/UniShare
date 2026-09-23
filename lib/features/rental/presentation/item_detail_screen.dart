@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:unishare/core/utils/communication_helper.dart';
+import 'package:unishare/shared/models/models.dart';
 
 class ItemDetailScreen extends StatelessWidget {
   final String itemId;
 
-  const ItemDetailScreen({Key? key, required this.itemId}) : super(key: key);
+  const ItemDetailScreen({super.key, required this.itemId});
 
   @override
   Widget build(BuildContext context) {
@@ -241,6 +243,35 @@ class ItemDetailScreen extends StatelessWidget {
                             ),
                           ],
                         ),
+                      ),
+                      Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          IconButton(
+                            icon: const Icon(Icons.phone_outlined, color: Color(0xFF00BF6D)),
+                            tooltip: 'Call Owner',
+                            onPressed: () {
+                              CommunicationHelper.showCallModal(
+                                context,
+                                userName: 'Priya Patel',
+                                role: 'Item Owner',
+                              );
+                            },
+                          ),
+                          IconButton(
+                            icon: const Icon(Icons.chat_bubble_outline, color: Color(0xFF00BF6D)),
+                            tooltip: 'Chat with Owner',
+                            onPressed: () {
+                              CommunicationHelper.openChat(
+                                context,
+                                otherUserId: 'u2',
+                                type: ConversationType.rental,
+                                contextId: itemId,
+                                contextTitle: 'Arduino Uno Kit',
+                              );
+                            },
+                          ),
+                        ],
                       ),
                     ],
                   ),

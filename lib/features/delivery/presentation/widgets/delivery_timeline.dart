@@ -9,10 +9,10 @@ class DeliveryTimeline extends StatelessWidget {
   final DateTime createdAt;
 
   const DeliveryTimeline({
-    Key? key,
+    super.key,
     required this.currentStatus,
     required this.createdAt,
-  }) : super(key: key);
+  });
 
   List<DeliveryStatus> get _timelineSteps => [
     DeliveryStatus.open,

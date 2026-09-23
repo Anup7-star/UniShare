@@ -8,7 +8,7 @@ import 'package:go_router/go_router.dart';
 import 'package:unishare/shared/widgets/uni_empty_state.dart';
 
 class BrowseDeliveriesScreen extends StatefulWidget {
-  const BrowseDeliveriesScreen({Key? key}) : super(key: key);
+  const BrowseDeliveriesScreen({super.key});
 
   @override
   State<BrowseDeliveriesScreen> createState() => _BrowseDeliveriesScreenState();
