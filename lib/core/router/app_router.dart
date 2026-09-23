@@ -17,6 +17,8 @@ import 'package:unishare/features/rental/presentation/list_item_screen.dart';
 import 'package:unishare/features/campus/presentation/campus_map_screen.dart';
 import 'package:unishare/features/profile/presentation/profile_screen.dart';
 import 'package:unishare/features/notifications/presentation/notifications_screen.dart';
+import 'package:unishare/features/messaging/presentation/inbox_screen.dart';
+import 'package:unishare/features/messaging/presentation/chat_screen.dart';
 
 final GlobalKey<NavigatorState> _rootNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'root');
 
@@ -25,6 +27,10 @@ final routerProvider = Provider<GoRouter>((ref) {
     navigatorKey: _rootNavigatorKey,
     initialLocation: RouteNames.home,
     routes: [
+      GoRoute(
+        path: '/',
+        redirect: (_, __) => RouteNames.home,
+      ),
       // Bottom navigation shell
       StatefulShellRoute.indexedStack(
         builder: (context, state, navigationShell) {
@@ -73,6 +79,15 @@ final routerProvider = Provider<GoRouter>((ref) {
               GoRoute(
                 path: RouteNames.profile,
                 builder: (context, state) => const ProfileScreen(),
+              ),
+            ],
+          ),
+          // Messages tab
+          StatefulShellBranch(
+            routes: [
+              GoRoute(
+                path: RouteNames.messages,
+                builder: (context, state) => const InboxScreen(),
               ),
             ],
           ),
@@ -139,6 +154,15 @@ final routerProvider = Provider<GoRouter>((ref) {
       GoRoute(
         path: RouteNames.notifications,
         builder: (context, state) => const NotificationsScreen(),
+      ),
+
+      // Chat (full-screen, outside bottom nav)
+      GoRoute(
+        path: '/messages/:id',
+        builder: (context, state) {
+          final id = state.pathParameters['id'] ?? '';
+          return ChatScreen(conversationId: id);
+        },
       ),
     ],
   );

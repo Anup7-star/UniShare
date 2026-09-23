@@ -82,6 +82,11 @@ class MainShell extends StatelessWidget {
                 selectedIcon: Icon(Icons.person),
                 label: 'Profile',
               ),
+              NavigationDestination(
+                icon: Icon(Icons.chat_bubble_outline),
+                selectedIcon: Icon(Icons.chat_bubble),
+                label: 'Messages',
+              ),
             ],
           ),
         ),

@@ -8,3 +8,5 @@ export 'rental_request.dart';
 export 'rating.dart';
 export 'notification_item.dart';
 export 'report.dart';
+export 'chat_message.dart';
+export 'conversation.dart';

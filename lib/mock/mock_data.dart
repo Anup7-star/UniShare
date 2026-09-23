@@ -5,12 +5,14 @@ import 'mock_campus.dart';
 import 'mock_deliveries.dart';
 import 'mock_rentals.dart';
 import 'mock_notifications.dart';
+import 'mock_messages.dart';
 
 export 'mock_users.dart';
 export 'mock_campus.dart';
 export 'mock_deliveries.dart';
 export 'mock_rentals.dart';
 export 'mock_notifications.dart';
+export 'mock_messages.dart';
 
 class MockDataService {
   // Simulate network delay
@@ -61,6 +63,33 @@ class MockDataService {
   Future<List<NotificationItem>> getNotifications() async {
     await _delay();
     return mockNotifications;
+  }
+
+  Future<List<Conversation>> getConversations() async {
+    await _delay();
+    return mockConversations;
+  }
+
+  Future<List<ChatMessage>> getMessages(String conversationId) async {
+    await _delay();
+    return List<ChatMessage>.from(
+      mockMessagesByConversation[conversationId] ?? [],
+    );
+  }
+
+  Future<void> sendMessage(String conversationId, ChatMessage message) async {
+    await Future.delayed(const Duration(milliseconds: 100));
+    mockMessagesByConversation.putIfAbsent(conversationId, () => []);
+    mockMessagesByConversation[conversationId]!.add(message);
+    // Update the last message in the conversation
+    final idx = mockConversations.indexWhere((c) => c.id == conversationId);
+    if (idx != -1) {
+      mockConversations[idx] = mockConversations[idx].copyWith(
+        lastMessage: message,
+        lastUpdated: message.timestamp,
+        unreadCount: 0,
+      );
+    }
   }
 
   Future<UniUser?> getUserById(String id) async {

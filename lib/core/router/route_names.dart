@@ -22,4 +22,6 @@ class RouteNames {
   static const myListings = '/profile/listings';
   static const settings = '/profile/settings';
   static const notifications = '/notifications';
+  static const messages = '/messages';
+  static const chat = '/messages/:id';
 }
