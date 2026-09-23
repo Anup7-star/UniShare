@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class FilterSheet extends StatefulWidget {
-  const FilterSheet({Key? key}) : super(key: key);
+  const FilterSheet({super.key});
 
   @override
-  _FilterSheetState createState() => _FilterSheetState();
+  State<FilterSheet> createState() => _FilterSheetState();
 }
 
 class _FilterSheetState extends State<FilterSheet> {
@@ -108,7 +108,7 @@ class _FilterSheetState extends State<FilterSheet> {
                 color: const Color(0xFF1A1A1A),
               ),
             ),
-            activeColor: const Color(0xFF00BF6D),
+            activeThumbColor: const Color(0xFF00BF6D),
             value: _availableNow,
             onChanged: (val) => setState(() => _availableNow = val),
           ),

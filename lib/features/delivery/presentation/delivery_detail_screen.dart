@@ -9,10 +9,11 @@ import 'package:unishare/shared/widgets/uni_card.dart';
 import 'package:unishare/shared/widgets/uni_avatar.dart';
 import 'package:unishare/shared/widgets/uni_chip.dart';
 import 'package:go_router/go_router.dart';
+import 'package:unishare/core/utils/communication_helper.dart';
 
 class DeliveryDetailScreen extends StatefulWidget {
   final String deliveryId;
-  const DeliveryDetailScreen({Key? key, required this.deliveryId}) : super(key: key);
+  const DeliveryDetailScreen({super.key, required this.deliveryId});
 
   @override
   State<DeliveryDetailScreen> createState() => _DeliveryDetailScreenState();
@@ -89,9 +90,9 @@ class _DeliveryDetailScreenState extends State<DeliveryDetailScreen> {
             Container(
               padding: const EdgeInsets.all(20),
               decoration: BoxDecoration(
-                color: AppColors.primary.withOpacity(0.1),
+                color: AppColors.primary.withValues(alpha: 0.1),
                 borderRadius: BorderRadius.circular(16),
-                border: Border.all(color: AppColors.primary.withOpacity(0.2)),
+                border: Border.all(color: AppColors.primary.withValues(alpha: 0.2)),
               ),
               child: Row(
                 children: [
@@ -283,6 +284,36 @@ class _DeliveryDetailScreenState extends State<DeliveryDetailScreen> {
                         ],
                       ),
                     ),
+                    Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        IconButton(
+                          icon: const Icon(Icons.phone_outlined, color: AppColors.primary),
+                          tooltip: 'Call Requester',
+                          onPressed: () {
+                            CommunicationHelper.showCallModal(
+                              context,
+                              userName: _requester!.name,
+                              role: 'Requester',
+                              avatarUrl: _requester!.avatarUrl,
+                            );
+                          },
+                        ),
+                        IconButton(
+                          icon: const Icon(Icons.chat_bubble_outline, color: AppColors.primary),
+                          tooltip: 'Chat with Requester',
+                          onPressed: () {
+                            CommunicationHelper.openChat(
+                              context,
+                              otherUserId: _requester!.id,
+                              type: ConversationType.delivery,
+                              contextId: widget.deliveryId,
+                              contextTitle: 'Delivery #${widget.deliveryId}',
+                            );
+                          },
+                        ),
+                      ],
+                    ),
                   ],
                 ),
               ),
@@ -311,15 +342,17 @@ class _DeliveryDetailScreenState extends State<DeliveryDetailScreen> {
               UniButton(
                 onPressed: () async {
                   if (_currentUser != null && _request != null) {
+                    final messenger = ScaffoldMessenger.of(context);
+                    final router = GoRouter.of(context);
                     await _mockDataService.acceptDeliveryRequest(_request!.id, _currentUser!.id);
                     if (mounted) {
-                      ScaffoldMessenger.of(context).showSnackBar(
+                      messenger.showSnackBar(
                         const SnackBar(
                           content: Text('Delivery request accepted! Proceeding to pickup verification.'),
                           backgroundColor: AppColors.primary,
                         ),
                       );
-                      context.push('/delivery/pickup/${_request!.id}');
+                      router.push('/delivery/pickup/${_request!.id}');
                     }
                   }
                 },

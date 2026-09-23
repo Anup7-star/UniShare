@@ -8,10 +8,10 @@ class PackageTypeSelector extends StatelessWidget {
   final ValueChanged<PackageType> onTypeChanged;
 
   const PackageTypeSelector({
-    Key? key,
+    super.key,
     required this.selectedType,
     required this.onTypeChanged,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

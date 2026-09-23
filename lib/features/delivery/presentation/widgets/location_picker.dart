@@ -102,7 +102,7 @@ class LocationPicker extends StatelessWidget {
                               onLocationSelected(loc);
                               Navigator.pop(context);
                             },
-                          )).toList(),
+                          )),
                           const Divider(color: AppColors.divider),
                         ],
                       );

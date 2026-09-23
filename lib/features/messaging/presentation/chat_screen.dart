@@ -1,6 +1,7 @@
-﻿import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 import 'package:unishare/core/theme/app_colors.dart';
 import 'package:unishare/core/theme/app_spacing.dart';
+import 'package:unishare/core/utils/communication_helper.dart';
 import 'package:unishare/mock/mock_data.dart';
 import 'package:unishare/shared/models/models.dart';
 import 'package:unishare/shared/widgets/uni_avatar.dart';
@@ -40,27 +41,64 @@ class _ChatScreenState extends State<ChatScreen> {
   }
 
   Future<void> _loadData() async {
-    final conversations = await _mockService.getConversations();
-    final users = await _mockService.getUsers();
-    final conv = conversations.firstWhere(
-      (c) => c.id == widget.conversationId,
-      orElse: () => conversations.first,
-    );
-    final messages = await _mockService.getMessages(widget.conversationId);
-    final otherId = conv.otherParticipantId(mockCurrentUser.id);
-    final otherUser = users.firstWhere(
-      (u) => u.id == otherId,
-      orElse: () => users.first,
-    );
+    try {
+      final conversations = await _mockService.getConversations();
+      final users = await _mockService.getUsers();
 
-    if (mounted) {
-      setState(() {
-        _conversation = conv;
-        _otherUser = otherUser;
-        _messages = messages;
-        _isLoading = false;
-      });
-      _scrollToBottom();
+      Conversation? conv;
+      for (final c in conversations) {
+        if (c.id == widget.conversationId) {
+          conv = c;
+          break;
+        }
+      }
+
+      if (conv == null) {
+        // Fallback: check if widget.conversationId is a user id or other context
+        for (final c in conversations) {
+          if (c.participantIds.contains(widget.conversationId)) {
+            conv = c;
+            break;
+          }
+        }
+      }
+
+      conv ??= conversations.isNotEmpty
+          ? conversations.first
+          : Conversation(
+              id: widget.conversationId,
+              type: ConversationType.delivery,
+              contextId: 'general',
+              contextTitle: 'Direct Chat',
+              participantIds: [mockCurrentUser.id, 'u2'],
+              lastUpdated: DateTime.now(),
+            );
+
+      final otherId = conv.otherParticipantId(mockCurrentUser.id);
+      UniUser? otherUser;
+      for (final u in users) {
+        if (u.id == otherId) {
+          otherUser = u;
+          break;
+        }
+      }
+      otherUser ??= (users.isNotEmpty ? users.first : mockCurrentUser);
+
+      final messages = await _mockService.getMessages(conv.id);
+
+      if (mounted) {
+        setState(() {
+          _conversation = conv;
+          _otherUser = otherUser;
+          _messages = messages;
+          _isLoading = false;
+        });
+        _scrollToBottom();
+      }
+    } catch (e) {
+      if (mounted) {
+        setState(() => _isLoading = false);
+      }
     }
   }
 
@@ -158,7 +196,14 @@ class _ChatScreenState extends State<ChatScreen> {
         actions: [
           IconButton(
             icon: const Icon(Icons.call_outlined),
-            onPressed: () {},
+            onPressed: () {
+              CommunicationHelper.showCallModal(
+                context,
+                userName: other.name,
+                role: other.department,
+                avatarUrl: other.avatarUrl,
+              );
+            },
             tooltip: 'Call',
           ),
           IconButton(

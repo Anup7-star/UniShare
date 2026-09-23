@@ -9,12 +9,12 @@ class PriceBreakdown extends StatelessWidget {
   final ValueChanged<double> onPriceChanged;
 
   const PriceBreakdown({
-    Key? key,
+    super.key,
     required this.suggestedPrice,
     required this.maxPrice,
     required this.currentPrice,
     required this.onPriceChanged,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -56,7 +56,7 @@ class PriceBreakdown extends StatelessWidget {
             activeTrackColor: AppColors.primary,
             inactiveTrackColor: AppColors.primaryLight,
             thumbColor: AppColors.primaryDark,
-            overlayColor: AppColors.primary.withOpacity(0.2),
+            overlayColor: AppColors.primary.withValues(alpha: 0.2),
             valueIndicatorColor: AppColors.primary,
           ),
           child: Slider(

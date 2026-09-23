@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:unishare/core/utils/communication_helper.dart';
+import 'package:unishare/shared/models/models.dart';
 
 class RentalRequestScreen extends StatelessWidget {
-  const RentalRequestScreen({Key? key}) : super(key: key);
+  const RentalRequestScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -115,7 +117,7 @@ class RentalRequestScreen extends StatelessWidget {
               decoration: BoxDecoration(
                 color: const Color(0xFFFFF9E6), // Warning light
                 borderRadius: BorderRadius.circular(8),
-                border: Border.all(color: const Color(0xFFFF9500).withOpacity(0.3)),
+                border: Border.all(color: const Color(0xFFFF9500).withValues(alpha: 0.3)),
               ),
               child: Row(
                 children: [
@@ -158,9 +160,29 @@ class RentalRequestScreen extends StatelessWidget {
                 ),
                 const Spacer(),
                 IconButton(
+                  icon: const Icon(Icons.phone_outlined, color: Color(0xFF00BF6D)),
+                  tooltip: 'Call Owner',
+                  onPressed: () {
+                    CommunicationHelper.showCallModal(
+                      context,
+                      userName: 'Rahul Sharma',
+                      role: 'Item Owner',
+                    );
+                  },
+                ),
+                IconButton(
                   icon: const Icon(Icons.chat_bubble_outline, color: Color(0xFF00BF6D)),
-                  onPressed: () {},
-                )
+                  tooltip: 'Chat with Owner',
+                  onPressed: () {
+                    CommunicationHelper.openChat(
+                      context,
+                      otherUserId: 'u3',
+                      type: ConversationType.rental,
+                      contextId: 'r1',
+                      contextTitle: 'Scientific Calculator fx-991EX',
+                    );
+                  },
+                ),
               ],
             ),
             const SizedBox(height: 40),

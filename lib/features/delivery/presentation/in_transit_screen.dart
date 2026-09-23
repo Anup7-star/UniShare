@@ -8,11 +8,12 @@ import 'package:unishare/shared/widgets/uni_avatar.dart';
 import 'package:unishare/shared/widgets/uni_button.dart';
 import 'package:unishare/features/delivery/presentation/widgets/delivery_timeline.dart';
 import 'package:go_router/go_router.dart';
+import 'package:unishare/core/utils/communication_helper.dart';
 import 'dart:async';
 
 class InTransitScreen extends StatefulWidget {
   final String deliveryId;
-  const InTransitScreen({Key? key, required this.deliveryId}) : super(key: key);
+  const InTransitScreen({super.key, required this.deliveryId});
 
   @override
   State<InTransitScreen> createState() => _InTransitScreenState();
@@ -227,9 +228,35 @@ class _InTransitScreenState extends State<InTransitScreen> with SingleTickerProv
                         ],
                       ),
                     ),
-                    IconButton(
-                      icon: const Icon(Icons.phone, color: AppColors.primary),
-                      onPressed: () {},
+                    Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        IconButton(
+                          icon: const Icon(Icons.phone, color: AppColors.primary),
+                          tooltip: 'Call ${_isRequester ? "Courier" : "Requester"}',
+                          onPressed: () {
+                            CommunicationHelper.showCallModal(
+                              context,
+                              userName: _partner!.name,
+                              role: _isRequester ? 'Courier' : 'Requester',
+                              avatarUrl: _partner!.avatarUrl,
+                            );
+                          },
+                        ),
+                        IconButton(
+                          icon: const Icon(Icons.chat_bubble_outline, color: AppColors.primary),
+                          tooltip: 'Chat with ${_isRequester ? "Courier" : "Requester"}',
+                          onPressed: () {
+                            CommunicationHelper.openChat(
+                              context,
+                              otherUserId: _partner!.id,
+                              type: ConversationType.delivery,
+                              contextId: widget.deliveryId,
+                              contextTitle: 'Delivery #${widget.deliveryId}',
+                            );
+                          },
+                        ),
+                      ],
                     ),
                   ],
                 ),

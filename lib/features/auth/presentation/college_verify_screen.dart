@@ -100,7 +100,7 @@ class _CollegeVerifyScreenState extends State<CollegeVerifyScreen> {
                   ),
                   decoration: InputDecoration(
                     labelText: 'College Email',
-                    hint: 'yourname@iitd.ac.in',
+                    hintText: 'yourname@iitd.ac.in',
                     labelStyle: GoogleFonts.inter(
                       color: const Color(0xFF6B6B6B),
                     ),

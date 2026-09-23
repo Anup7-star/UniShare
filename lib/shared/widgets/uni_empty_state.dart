@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:unishare/core/theme/app_colors.dart';
-import 'package:unishare/core/theme/app_spacing.dart';
 
 class UniEmptyState extends StatelessWidget {
   final IconData icon;

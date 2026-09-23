@@ -14,13 +14,13 @@ class DeliveryCard extends StatelessWidget {
   final CampusLocation? destination;
 
   const DeliveryCard({
-    Key? key,
+    super.key,
     required this.request,
     required this.onTap,
     this.requester,
     this.pickup,
     this.destination,
-  }) : super(key: key);
+  });
 
   Color _getUrgencyColor(UrgencyLevel level) {
     switch (level) {
@@ -88,7 +88,9 @@ class DeliveryCard extends StatelessWidget {
               const SizedBox(width: 8),
               UniChip(
                 label: request.urgency.name.toUpperCase(),
-                isSelected: true,),
+                backgroundColor: _getUrgencyColor(request.urgency).withValues(alpha: 0.12),
+                textColor: _getUrgencyColor(request.urgency),
+              ),
             ],
           ),
           const SizedBox(height: 16),

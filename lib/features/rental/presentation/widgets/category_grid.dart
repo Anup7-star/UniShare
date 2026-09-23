@@ -6,10 +6,10 @@ class CategoryGrid extends StatelessWidget {
   final Function(String) onCategorySelected;
 
   CategoryGrid({
-    Key? key,
+    super.key,
     required this.selectedCategory,
     required this.onCategorySelected,
-  }) : super(key: key);
+  });
 
   final List<Map<String, dynamic>> categories = [
     {'name': 'All', 'icon': Icons.grid_view},

@@ -6,10 +6,10 @@ import 'widgets/rental_card.dart';
 import 'widgets/filter_sheet.dart';
 
 class RentalHomeScreen extends StatefulWidget {
-  const RentalHomeScreen({Key? key}) : super(key: key);
+  const RentalHomeScreen({super.key});
 
   @override
-  _RentalHomeScreenState createState() => _RentalHomeScreenState();
+  State<RentalHomeScreen> createState() => _RentalHomeScreenState();
 }
 
 class _RentalHomeScreenState extends State<RentalHomeScreen> {

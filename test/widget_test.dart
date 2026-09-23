@@ -7,6 +7,10 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+<<<<<<< HEAD
+=======
+
+>>>>>>> 8e4b66c9723828a8c36c4fe511aa1dc54a1f1beb
 import 'package:unishare/app.dart';
 
 void main() {
