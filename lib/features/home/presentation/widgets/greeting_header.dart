@@ -6,11 +6,15 @@ import 'package:unishare/shared/widgets/uni_avatar.dart';
 class GreetingHeader extends StatelessWidget {
   final String userName;
   final String userAvatar;
+  final VoidCallback? onNotificationTap;
+  final VoidCallback? onAvatarTap;
 
   const GreetingHeader({
     super.key,
     required this.userName,
     required this.userAvatar,
+    this.onNotificationTap,
+    this.onAvatarTap,
   });
 
   @override
@@ -41,7 +45,7 @@ class GreetingHeader extends StatelessWidget {
             Stack(
               children: [
                 IconButton(
-                  onPressed: () {},
+                  onPressed: onNotificationTap,
                   icon: const Icon(Icons.notifications_none, color: AppColors.textPrimary),
                 ),
                 Positioned(
@@ -59,9 +63,12 @@ class GreetingHeader extends StatelessWidget {
               ],
             ),
             const SizedBox(width: AppSpacing.xs),
-            UniAvatar(
-              imageUrl: userAvatar,
-              name: userName,
+            GestureDetector(
+              onTap: onAvatarTap,
+              child: UniAvatar(
+                imageUrl: userAvatar,
+                name: userName,
+              ),
             ),
           ],
         )

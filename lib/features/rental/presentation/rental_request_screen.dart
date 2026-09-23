@@ -75,7 +75,7 @@ class RentalRequestScreen extends StatelessWidget {
                     ],
                   ),
                   const Padding(
-                    padding: 16.0,
+                    padding: EdgeInsets.all(16.0),
                     child: Divider(color: Color(0xFFE5E5EA)),
                   ),
                   Row(

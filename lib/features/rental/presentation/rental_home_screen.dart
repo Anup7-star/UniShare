@@ -86,7 +86,7 @@ class _RentalHomeScreenState extends State<RentalHomeScreen> {
         ],
       ),
       floatingActionButton: FloatingActionButton.extended(
-        onPressed: () => context.push('/rentals/new'),
+        onPressed: () => context.push('/rental/list'),
         icon: const Icon(Icons.add, color: Colors.white),
         label: Text(
           'List Item',
@@ -196,12 +196,17 @@ class _RentalHomeScreenState extends State<RentalHomeScreen> {
                       color: const Color(0xFF1A1A1A),
                     ),
                   ),
-                  Text(
-                    'See all',
-                    style: GoogleFonts.inter(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w500,
-                      color: const Color(0xFF00BF6D),
+                  GestureDetector(
+                    onTap: () {
+                      setState(() => _selectedCategory = 'All');
+                    },
+                    child: Text(
+                      'See all',
+                      style: GoogleFonts.inter(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w500,
+                        color: const Color(0xFF00BF6D),
+                      ),
                     ),
                   ),
                 ],
@@ -242,7 +247,7 @@ class _RentalHomeScreenState extends State<RentalHomeScreen> {
                       (context, index) {
                         return RentalCard(
                           item: filteredItems[index],
-                          onTap: () => context.push('/rentals/detail/${filteredItems[index]['id']}'),
+                          onTap: () => context.push('/rental/detail/${filteredItems[index]['id']}'),
                         );
                       },
                       childCount: filteredItems.length,

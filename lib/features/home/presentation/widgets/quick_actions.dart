@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:unishare/core/theme/app_colors.dart';
 import 'package:unishare/core/theme/app_spacing.dart';
 import 'package:unishare/shared/widgets/uni_card.dart';
@@ -26,7 +27,7 @@ class QuickActions extends StatelessWidget {
                 title: 'Request Delivery',
                 subtitle: 'Get items to your door',
                 icon: Icons.local_shipping_outlined,
-                onTap: () {},
+                onTap: () => context.push('/delivery/request'),
               ),
             ),
             const SizedBox(width: AppSpacing.md),
@@ -35,7 +36,7 @@ class QuickActions extends StatelessWidget {
                 title: 'Carry a Delivery',
                 subtitle: 'Earn while you walk',
                 icon: Icons.directions_walk,
-                onTap: () {},
+                onTap: () => context.go('/deliveries'),
               ),
             ),
           ],
@@ -48,7 +49,7 @@ class QuickActions extends StatelessWidget {
                 title: 'Find an Item',
                 subtitle: 'Borrow from peers',
                 icon: Icons.search,
-                onTap: () {},
+                onTap: () => context.go('/rentals'),
               ),
             ),
             const SizedBox(width: AppSpacing.md),
@@ -57,7 +58,7 @@ class QuickActions extends StatelessWidget {
                 title: 'List an Item',
                 subtitle: 'Rent out your stuff',
                 icon: Icons.add_circle_outline,
-                onTap: () {},
+                onTap: () => context.push('/rental/list'),
               ),
             ),
           ],

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:unishare/core/theme/app_colors.dart';
 import 'package:unishare/core/theme/app_spacing.dart';
 import 'package:unishare/shared/widgets/uni_card.dart';
@@ -24,7 +25,9 @@ class NearbyDeliveries extends StatelessWidget {
 
           return SizedBox(
             width: 220,
-            child: UniCard(
+            child: GestureDetector(
+              onTap: () => context.push('/delivery/detail/${delivery.id}'),
+              child: UniCard(
               padding: EdgeInsets.all(AppSpacing.md),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -91,8 +94,9 @@ class NearbyDeliveries extends StatelessWidget {
                 ],
               ),
             ),
-          );
-        },
+          ),
+        );
+      },
       ),
     );
   }

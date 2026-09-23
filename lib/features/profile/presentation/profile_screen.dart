@@ -159,12 +159,81 @@ class ProfileScreen extends StatelessWidget {
               color: const Color(0xFFFFFFFF),
               child: Column(
                 children: [
-                  _buildMenuItem(Icons.history, 'Transaction History', onTap: () => context.push('/profile/transactions')),
-                  _buildMenuItem(Icons.inventory_2_outlined, 'My Listings', onTap: () => context.push('/profile/listings')),
-                  _buildMenuItem(Icons.settings_outlined, 'Settings'),
-                  _buildMenuItem(Icons.help_outline, 'Help & Support'),
-                  _buildMenuItem(Icons.report_problem_outlined, 'Report a Problem'),
-                  _buildMenuItem(Icons.logout, 'Log Out', isDestructive: true),
+                  _buildMenuItem(
+                    Icons.history,
+                    'Transaction History',
+                    onTap: () => context.go('/deliveries'),
+                  ),
+                  _buildMenuItem(
+                    Icons.inventory_2_outlined,
+                    'My Listings',
+                    onTap: () => context.go('/rentals'),
+                  ),
+                  _buildMenuItem(
+                    Icons.settings_outlined,
+                    'Settings',
+                    onTap: () {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(content: Text('Settings feature coming soon!')),
+                      );
+                    },
+                  ),
+                  _buildMenuItem(
+                    Icons.help_outline,
+                    'Help & Support',
+                    onTap: () {
+                      showDialog(
+                        context: context,
+                        builder: (ctx) => AlertDialog(
+                          title: Text('Help & Support', style: GoogleFonts.inter(fontWeight: FontWeight.bold)),
+                          content: Text('Contact campus support at support@unishare.edu or visit the campus helpdesk.', style: GoogleFonts.inter()),
+                          actions: [
+                            TextButton(
+                              onPressed: () => Navigator.pop(ctx),
+                              child: Text('Close', style: GoogleFonts.inter(color: const Color(0xFF00BF6D))),
+                            ),
+                          ],
+                        ),
+                      );
+                    },
+                  ),
+                  _buildMenuItem(
+                    Icons.report_problem_outlined,
+                    'Report a Problem',
+                    onTap: () {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(content: Text('Thank you! Feedback submitted to campus admin.')),
+                      );
+                    },
+                  ),
+                  _buildMenuItem(
+                    Icons.logout,
+                    'Log Out',
+                    isDestructive: true,
+                    onTap: () {
+                      showDialog(
+                        context: context,
+                        builder: (ctx) => AlertDialog(
+                          title: Text('Log Out', style: GoogleFonts.inter(fontWeight: FontWeight.bold)),
+                          content: Text('Are you sure you want to log out?', style: GoogleFonts.inter()),
+                          actions: [
+                            TextButton(
+                              onPressed: () => Navigator.pop(ctx),
+                              child: Text('Cancel', style: GoogleFonts.inter()),
+                            ),
+                            ElevatedButton(
+                              onPressed: () {
+                                Navigator.pop(ctx);
+                                context.go('/home');
+                              },
+                              style: ElevatedButton.styleFrom(backgroundColor: const Color(0xFFFF3B30)),
+                              child: Text('Log Out', style: GoogleFonts.inter(color: Colors.white)),
+                            ),
+                          ],
+                        ),
+                      );
+                    },
+                  ),
                 ],
               ),
             ),

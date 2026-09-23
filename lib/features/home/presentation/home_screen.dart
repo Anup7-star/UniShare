@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:unishare/core/theme/app_colors.dart';
 import 'package:unishare/core/theme/app_spacing.dart';
 import 'package:unishare/shared/widgets/uni_section_header.dart';
@@ -50,9 +51,11 @@ class _HomeScreenState extends State<HomeScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const GreetingHeader(
+              GreetingHeader(
                 userName: 'Aditya',
                 userAvatar: 'https://i.pravatar.cc/150?u=aditya',
+                onNotificationTap: () => context.push('/notifications'),
+                onAvatarTap: () => context.go('/profile'),
               ),
               const SizedBox(height: AppSpacing.lg),
               _buildVerificationCard(context),
@@ -68,7 +71,7 @@ class _HomeScreenState extends State<HomeScreen> {
               UniSectionHeader(
                 title: 'Nearby Requests',
                 actionLabel: 'See all',
-                onActionTap: () {},
+                onActionTap: () => context.go('/deliveries'),
               ),
               const SizedBox(height: AppSpacing.sm),
               _isLoading
@@ -78,7 +81,7 @@ class _HomeScreenState extends State<HomeScreen> {
               UniSectionHeader(
                 title: 'Popular Rentals',
                 actionLabel: 'See all',
-                onActionTap: () {},
+                onActionTap: () => context.go('/rentals'),
               ),
               const SizedBox(height: AppSpacing.sm),
               _isLoading

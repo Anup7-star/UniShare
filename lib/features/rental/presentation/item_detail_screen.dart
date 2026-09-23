@@ -76,7 +76,34 @@ class ItemDetailScreen extends StatelessWidget {
                       ),
                       elevation: 0,
                     ),
-                    onPressed: () {},
+                    onPressed: () {
+                      showDialog(
+                        context: context,
+                        builder: (ctx) => AlertDialog(
+                          title: Text('Request Rental', style: GoogleFonts.inter(fontWeight: FontWeight.bold)),
+                          content: Text('Would you like to send a rental request to the owner for ₹50/day?', style: GoogleFonts.inter()),
+                          actions: [
+                            TextButton(
+                              onPressed: () => Navigator.pop(ctx),
+                              child: Text('Cancel', style: GoogleFonts.inter(color: Colors.grey)),
+                            ),
+                            ElevatedButton(
+                              onPressed: () {
+                                Navigator.pop(ctx);
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                    content: Text('Rental request sent to owner!'),
+                                    backgroundColor: Color(0xFF00BF6D),
+                                  ),
+                                );
+                              },
+                              style: ElevatedButton.styleFrom(backgroundColor: const Color(0xFF00BF6D)),
+                              child: Text('Confirm Request', style: GoogleFonts.inter(color: Colors.white)),
+                            ),
+                          ],
+                        ),
+                      );
+                    },
                     child: Text(
                       'Request Rental',
                       style: GoogleFonts.inter(
