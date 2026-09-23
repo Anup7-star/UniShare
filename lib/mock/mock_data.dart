@@ -35,6 +35,16 @@ class MockDataService {
     return mockLocations;
   }
 
+  Future<List<CampusLocation>> getPickupLocations() async {
+    await _delay();
+    return pickupLocations;
+  }
+
+  Future<List<CampusLocation>> getDropLocations() async {
+    await _delay();
+    return dropLocations;
+  }
+
   Future<List<CampusRoute>> getRoutes() async {
     await _delay();
     return mockRoutes;
